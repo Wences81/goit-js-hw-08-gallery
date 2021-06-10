@@ -64,9 +64,22 @@ const galleryItems = [
   },
 ];
 
-console.log(createImageCardsMarkup(galleryItems))
+
+
+
+
+const imagesContainer = document.querySelector(".js-gallery");
+
+const imagesMarkup = createImageCardsMarkup(galleryItems);
+
+imagesContainer.insertAdjacentHTML("beforeend", imagesMarkup);
+
+imagesContainer.addEventListener("click", openImagesContainerClick)
+
+
 
 function createImageCardsMarkup(galleryItems) {
+
   return galleryItems
     
     .map(({ preview, original, description }) => {
@@ -85,9 +98,53 @@ function createImageCardsMarkup(galleryItems) {
       alt="${description}"
     />
   </a>
-</li>`;
+</li> `;
     
   })
     .join("");
   
+}
+
+
+
+
+
+const openModal = document.querySelector(".js-lightbox")
+
+const changeSrcImage = document.querySelector(".lightbox__image")
+
+
+
+
+function openImagesContainerClick(e) {
+
+  e.preventDefault();
+
+  const isGalleryImage = e.target.classList.contains("gallery__item");
+
+  if (!isGalleryImage) {
+
+    openModal.classList.add("is-open");
+
+    changeSrcImage.src = e.target.dataset.source;
+    changeSrcImage.alt = e.target.alt;
+
+
+  }
+}
+
+
+
+const closeModal = document.querySelector('[data-action="close-lightbox"]');
+
+closeModal.addEventListener("click", onCloseModal)
+
+function onCloseModal() {
+  
+  openModal.classList.remove("is-open");
+  
+  changeSrcImage.src = "";
+  changeSrcImage.alt = "";
+
+
 }

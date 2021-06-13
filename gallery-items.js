@@ -180,7 +180,7 @@ function onOverlayClick(e) {
 
 function onEscClick(e) {
 
-  if (e.code === "Escape") {
+  if (e.key === "Escape") {
    
     onCloseModal();
 

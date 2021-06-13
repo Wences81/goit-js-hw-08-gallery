@@ -67,7 +67,6 @@ const galleryItems = [
 
 
 
-
 const imagesContainer = document.querySelector(".js-gallery");
 
 const imagesMarkup = createImageCardsMarkup(galleryItems);
@@ -129,6 +128,13 @@ function openImagesContainerClick(e) {
     changeSrcImage.src = e.target.dataset.source;
     changeSrcImage.alt = e.target.alt;
 
+    
+
+
+    window.addEventListener("keydown", onEscClick);
+
+    window.addEventListener("keydown", onArrowPress)
+
 
   }
 }
@@ -137,7 +143,8 @@ function openImagesContainerClick(e) {
 
 const closeModal = document.querySelector('[data-action="close-lightbox"]');
 
-closeModal.addEventListener("click", onCloseModal)
+closeModal.addEventListener("click", onCloseModal);
+
 
 function onCloseModal() {
   
@@ -146,5 +153,68 @@ function onCloseModal() {
   changeSrcImage.src = "";
   changeSrcImage.alt = "";
 
+  window.removeEventListener("keydown", onEscClick);
 
+  window.removeEventListener("keydown", onArrowPress)
+
+
+}
+
+
+
+
+const overlay = document.querySelector(".lightbox__overlay");
+
+overlay.addEventListener("click", onOverlayClick);
+
+
+function onOverlayClick(e) {
+
+  if (e.currentTarget === e.target) {
+    
+    onCloseModal();
+  }
+}
+
+
+
+function onEscClick(e) {
+
+  if (e.code === "Escape") {
+   
+    onCloseModal();
+
+ }
+  
+}
+
+
+let arrowImages = [];
+galleryItems.forEach(item => {
+  arrowImages.push(item.original);
+});
+
+function onArrowPress(e) {
+
+  let index = arrowImages.indexOf(changeSrcImage.src);
+
+  if (e.key === "ArrowRight") {
+    
+    if (index < arrowImages.length - 1) {
+      changeSrcImage.setAttribute("src", arrowImages[index + 1]);
+    } else {
+      index = -1;
+      changeSrcImage.setAttribute("src", arrowImages[index + 1]);
+    }
+  }
+
+  if (e.key === "ArrowLeft") {
+
+    if (index === 0) {
+      index = arrowImages.length;
+      changeSrcImage.setAttribute("src", arrowImages[index - 1]);
+
+    } else changeSrcImage.setAttribute("src", arrowImages[index - 1]);
+  }
+  
 }

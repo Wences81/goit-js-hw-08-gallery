@@ -150,6 +150,8 @@ closeModal.addEventListener("click", onCloseModal);
 
 const overlay = document.querySelector(".lightbox__overlay");
 
+ overlay.addEventListener("click", onCloseModal);
+
 
 function onCloseModal() {
   
@@ -157,15 +159,12 @@ function onCloseModal() {
   
   changeSrcImage.src = "";
   changeSrcImage.alt = "";
-
+ 
   
 
   window.removeEventListener("keydown", onEscClick);
 
   window.removeEventListener("keydown", onArrowPress);
-
-
-  overlay.addEventListener("click", onCloseModal);
 
 
 }

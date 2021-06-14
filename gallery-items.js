@@ -119,9 +119,11 @@ function openImagesContainerClick(e) {
 
   e.preventDefault();
 
-  const isGalleryImage = e.target.classList.contains("gallery__item");
+  const isGalleryImage = e.target.classList.contains("gallery__image");
 
   if (!isGalleryImage) {
+    return
+  }
 
     openModal.classList.add("is-open");
 
@@ -136,7 +138,7 @@ function openImagesContainerClick(e) {
     window.addEventListener("keydown", onArrowPress)
 
 
-  }
+  
 }
 
 
@@ -146,6 +148,9 @@ const closeModal = document.querySelector('[data-action="close-lightbox"]');
 closeModal.addEventListener("click", onCloseModal);
 
 
+const overlay = document.querySelector(".lightbox__overlay");
+
+
 function onCloseModal() {
   
   openModal.classList.remove("is-open");
@@ -153,9 +158,14 @@ function onCloseModal() {
   changeSrcImage.src = "";
   changeSrcImage.alt = "";
 
+  
+
   window.removeEventListener("keydown", onEscClick);
 
-  window.removeEventListener("keydown", onArrowPress)
+  window.removeEventListener("keydown", onArrowPress);
+
+
+  overlay.addEventListener("click", onCloseModal);
 
 
 }
@@ -163,18 +173,18 @@ function onCloseModal() {
 
 
 
-const overlay = document.querySelector(".lightbox__overlay");
-
-overlay.addEventListener("click", onOverlayClick);
 
 
-function onOverlayClick(e) {
+// overlay.addEventListener("click", onOverlayClick);
 
-  if (e.currentTarget === e.target) {
+
+// function onOverlayClick(e) {
+
+//   if (e.currentTarget === e.target) {
     
-    onCloseModal();
-  }
-}
+//     onCloseModal();
+//   }
+// }
 
 
 
